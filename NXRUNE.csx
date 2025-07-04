@@ -23,12 +23,13 @@ UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data, null, decompSet
     ThrowOnNoOpFindReplace = true
 };
 
+// gml_Object_obj_init_pc
+
 importGroup.QueueFindReplace("gml_Object_obj_init_pc_Create_0", "if (display_width > (640 * _ww) && display_height > (480 * _ww))", "if (display_width > (640 * _ww) && display_height > (360 * _ww))");
 
 importGroup.QueueFindReplace("gml_Object_obj_init_pc_Create_0", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
 importGroup.QueueFindReplace("gml_Object_obj_init_pc_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
-
 
 importGroup.QueueAppend("gml_Object_obj_init_pc_Draw_77", @"var ww = window_get_width();
 var wh = window_get_height();
@@ -60,6 +61,10 @@ draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy)
 draw_enable_alphablend(true);
 texture_set_interpolation(false);
 ");
+
+// gml_Object_obj_screen_transition
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_transition_Step_0", "if (global.is_console)", "    if (true)");
 
 importGroup.Import();
 

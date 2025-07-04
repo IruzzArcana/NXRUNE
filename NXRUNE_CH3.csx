@@ -79,6 +79,27 @@ UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data, null, decompSet
 };
 
 // obj_initializer2
+
+importGroup.QueueFindReplace("gml_Object_obj_initializer2_Create_0", @"if (global.is_console)
+    loadtex = instance_create(0, 0, obj_prefetchtex);", @"if (true)
+    loadtex = instance_create(0, 0, obj_prefetchtex);");
+
+importGroup.QueueFindReplace("gml_Object_obj_initializer2_Step_0", @"    if (!textures_loaded)
+        textures_loaded = loadtex.loaded;
+    
+    if (textures_loaded)
+        show_debug_message_concat(""TEXTURES LOADED"");
+    else
+        exit;
+}", @"}
+    if (!textures_loaded)
+        textures_loaded = loadtex.loaded;
+    
+    if (textures_loaded)
+        show_debug_message_concat(""TEXTURES LOADED"");
+    else
+        exit;");
+
 importGroup.QueueFindReplace("gml_Object_obj_initializer2_Step_0", @"        if (global.is_console)
             global.screen_border_alpha = 0;", "global.screen_border_alpha = 0;");
 
@@ -369,6 +390,8 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (!global.is_c
                             scr_enable_screen_border(!_disable_border);
                             ini_close();
                         }");
+
+importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_console)", "if (true)");
 
 // scr_text
 
