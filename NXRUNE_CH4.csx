@@ -139,12 +139,7 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Create_0", "scr_enable_screen_
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Alarm_1", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
-importGroup.QueueFindReplace("gml_Object_obj_time_Step_0", @"if (global.is_console)
-{
-    if (!i_ex(obj_border_controller))
-        instance_create(0, 0, obj_border_controller);
-}", @"if (!i_ex(obj_border_controller))
-        instance_create(0, 0, obj_border_controller);");
+importGroup.QueueFindReplace("gml_Object_obj_time_Step_0", "if (global.is_console)", "if (true)");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", " draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 40, 30, 2, 2, 0, c_white, quit_timer / 15);");
 
