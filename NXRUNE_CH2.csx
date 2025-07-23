@@ -273,7 +273,7 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "if (global
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "global.submenucoord[30] = 6;", "global.submenucoord[30] = 7;");
 
-importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"                if (global.is_console)
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_darkcontroller_Step_0", @"if (global.is_console)
                 {
                     if (global.submenucoord[30] == 3)
                     {
@@ -285,6 +285,9 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                     
                     if (global.submenucoord[30] == 4)
                     {
+                        if (room == room_dw_mansion_krisroom && global.plot <= 100)
+                            global.disable_border = true;
+
                         if (global.disable_border)
                         {
                             selectnoise = 0;
@@ -347,6 +350,9 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
 
                     if (global.submenucoord[30] == 5)
                     {
+                        if (room == room_dw_mansion_krisroom && global.plot <= 100)
+                            global.disable_border = true;
+                        
                         if (global.disable_border)
                         {
                             selectnoise = 0;

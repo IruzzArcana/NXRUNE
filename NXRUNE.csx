@@ -29,7 +29,11 @@ importGroup.QueueFindReplace("gml_Object_obj_init_pc_Create_0", "if (display_wid
 
 importGroup.QueueFindReplace("gml_Object_obj_init_pc_Create_0", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
+importGroup.QueueAppend("gml_Object_obj_init_pc_Create_0", @"application_surface_enable(true);
+    application_surface_draw_enable(false);");
+
 importGroup.QueueFindReplace("gml_Object_obj_init_pc_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
+
 
 importGroup.QueueAppend("gml_Object_obj_init_pc_Draw_77", @"var ww = window_get_width();
 var wh = window_get_height();
