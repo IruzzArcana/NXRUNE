@@ -187,8 +187,8 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     }",
     @"var ww = window_get_width();
     var wh = window_get_height();
-    var border_w = background_get_width(bg);
-    var border_h = background_get_height(bg);
+    var border_w = 1920;
+    var border_h = 1080;
     var border_aspect = border_w / border_h;
     var window_aspect = ww / wh;
     var scale;
@@ -198,10 +198,12 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     else
         scale = ww / border_w;
     
-    var draw_w = border_w * scale;
-    var draw_h = border_h * scale;
-    var draw_x = (ww - draw_w) / 2;
-    var draw_y = (wh - draw_h) / 2;
+    var draw_w = background_get_width(bg) * scale;
+    var draw_h = background_get_height(bg) * scale;
+    var off_x = (ww - (border_w * scale)) / 2;
+    var off_y = (wh - (border_h * scale)) / 2;
+    var draw_x = off_x + (xx * scale);
+    var draw_y = off_y + (yy * scale);
     draw_background_stretched(bg, draw_x, draw_y, draw_w, draw_h);");
 
 // obj_darkcontroller
