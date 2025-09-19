@@ -387,6 +387,10 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_text", "if (!paptalk && globa
 
 importGroup.QueueFindReplace("gml_Object_obj_onion_event_Create_0", "if (global.is_console)", "if (true)");
 
+// obj_dw_church_ripplepuzzle_postgers
+
+importGroup.QueueFindReplace("gml_Object_obj_dw_church_ripplepuzzle_postgers_Step_0", "if (scr_is_switch_os())", "if (true)");
+
 importGroup.Import();
 
 ScriptMessage("All done! :3");
