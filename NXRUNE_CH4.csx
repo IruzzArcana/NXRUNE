@@ -145,6 +145,8 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
+
 // obj_border_controller
 
 importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", @"var xx = floor((ww - (sw * global.window_scale)) / 2);

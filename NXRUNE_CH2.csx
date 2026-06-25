@@ -151,6 +151,8 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "window_set_size(640
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", " draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 40, 30, 2, 2, 0, c_white, quit_timer / 15);");
 
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
+
 // obj_border_controller
 
 importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77",
