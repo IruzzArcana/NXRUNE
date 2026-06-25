@@ -302,6 +302,10 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                     if (global.submenucoord[30] == 7)
                         m_quit = 1;");
 
+// obj_chapter_continue
+
+importGroup.QueueFindReplace("gml_Object_obj_chapter_continue_Alarm_0", "if (global.is_console)", "if (true)");
+
 importGroup.Import();
 
 ScriptMessage("All done! :3");
