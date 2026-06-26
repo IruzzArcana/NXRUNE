@@ -215,7 +215,26 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     var off_y = (wh - (border_h * scale)) / 2;
     var draw_x = off_x + (xx * scale);
     var draw_y = off_y + (yy * scale);
-    draw_background_stretched(bg, draw_x, draw_y, draw_w, draw_h);");
+    draw_background_stretched(bg, draw_x, draw_y, draw_w, draw_h);
+    
+    c_bak = draw_get_color();
+    a_bak = draw_get_alpha();
+    draw_set_color(c_black);
+    draw_set_alpha(1);
+    
+    if (window_aspect > border_aspect)
+    {
+        ossafe_fill_rectangle(0, 0, off_x - 1, wh);
+        ossafe_fill_rectangle(draw_w + draw_x, 0, ww, wh);
+    }
+    else if (window_aspect != border_aspect)
+    {
+        ossafe_fill_rectangle(0, 0, ww, off_y - 1);
+        ossafe_fill_rectangle(0, draw_h + draw_y, ww, wh);
+    }
+    
+    draw_set_color(c_bak);
+    draw_set_alpha(a_bak);");
 
 // obj_darkcontroller
 
