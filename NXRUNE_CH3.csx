@@ -159,7 +159,31 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Step_0", @"if (global.is_conso
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
-importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", " draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 40, 30, 2, 2, 0, c_white, quit_timer / 15);");
+importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", @"var ww = window_get_width();
+var wh = window_get_height();
+var border_w = 1920;
+var border_h = 1080;
+var xx, yy;
+
+if ((ww / wh) > (border_w / border_h))
+{
+    var scale = wh / border_h;
+    border_w *= scale;
+    border_h *= scale;
+    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
+    yy = 60 * (wh / 1080);
+}
+else
+{
+    var scale = ww / border_w;
+    border_w *= scale;
+    border_h *= scale;
+    xx = 320 * (ww / 1920);
+    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
+}
+display_set_gui_maximize();");
+
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, xx + 4, yy + 4, 5 * scale, 5 * scale, 0, c_white, quit_timer / 15);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
 
