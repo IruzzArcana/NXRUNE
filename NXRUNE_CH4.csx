@@ -108,6 +108,49 @@ importGroup.QueueAppend("gml_Object_obj_initializer2_Step_0", "global.game_won =
 importGroup.QueueFindReplace("gml_GlobalScript_scr_load", @"    if (global.is_console)
         global.tempflag[95] = 1;", "global.tempflag[95] = 1;");
 
+// obj_border_controller
+
+importGroup.QueueAppend("gml_Object_obj_border_controller_Create_0", @"application_surface_rects = {
+    xx: 0,
+    yy: 0,
+    w: 640,
+    h: 480,
+    border_scale: 1
+};");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77",
+@"var xx = floor((ww - (sw * global.window_scale)) / 2);
+var yy = floor((wh - (sh * global.window_scale)) / 2);", @"var border_w = 1920;
+var border_h = 1080;
+var xx, yy;
+
+if ((ww / wh) > (border_w / border_h))
+{
+    var scale = wh / border_h;
+    border_w *= scale;
+    border_h *= scale;
+    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
+    yy = 60 * (wh / 1080);
+}
+else
+{
+    var scale = ww / border_w;
+    border_w *= scale;
+    border_h *= scale;
+    xx = 320 * (ww / 1920);
+    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
+}
+application_surface_rects = 
+{
+    xx: xx,
+    yy: yy,
+    w: ww - (2 * xx),
+    h: wh - (2 * yy),
+    border_scale: scale
+};");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
+
 // obj_time
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Create_0", @"if (global.is_console)
@@ -141,63 +184,13 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Alarm_1", "window_set_size(640
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Step_0", "if (global.is_console)", "if (true)");
 
-importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", @"var ww = window_get_width();
-var wh = window_get_height();
-var border_w = 1920;
-var border_h = 1080;
-var xx, yy;
+importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", "display_set_gui_maximize();");
 
-if ((ww / wh) > (border_w / border_h))
-{
-    var scale = wh / border_h;
-    border_w *= scale;
-    border_h *= scale;
-    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
-    yy = 60 * (wh / 1080);
-}
-else
-{
-    var scale = ww / border_w;
-    border_w *= scale;
-    border_h *= scale;
-    xx = 320 * (ww / 1920);
-    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
-}
-display_set_gui_maximize();");
-
-importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, xx + 4, yy + 4, 5 * scale, 5 * scale, 0, c_white, quit_timer / 15);");
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, obj_border_controller.application_surface_rects.xx + 4, obj_border_controller.application_surface_rects.yy + 4, 5 * obj_border_controller.application_surface_rects.border_scale, 5 * obj_border_controller.application_surface_rects.border_scale, 0, c_white, quit_timer / 15);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
-
-// obj_border_controller
-
-importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", @"var xx = floor((ww - (sw * global.window_scale)) / 2);
-var yy = floor((wh - (sh * global.window_scale)) / 2);",
-@"var border_w = 1920;
-var border_h = 1080;
-var xx, yy;
-
-if ((ww / wh) > (border_w / border_h))
-{
-    var scale = wh / border_h;
-    border_w *= scale;
-    border_h *= scale;
-    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
-    yy = 60 * (wh / 1080);
-}
-else
-{
-    var scale = ww / border_w;
-    border_w *= scale;
-    border_h *= scale;
-    xx = 320 * (ww / 1920);
-    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
-}");
-
-importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
-
 
 // scr_draw_background_ps4
 

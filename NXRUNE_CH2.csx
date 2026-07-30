@@ -113,6 +113,49 @@ importGroup.QueueFindReplace("gml_Object_obj_initializer2_Step_0", @"    if (glo
 
 importGroup.QueueAppend("gml_Object_obj_initializer2_Step_0", "global.game_won = scr_completed_chapter_any_slot(global.chapter);");
 
+// obj_border_controller
+
+importGroup.QueueAppend("gml_Object_obj_border_controller_Create_0", @"application_surface_rects = {
+    xx: 0,
+    yy: 0,
+    w: 640,
+    h: 480,
+    border_scale: 1
+};");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77",
+@"var xx = floor((ww - (sw * global.window_scale)) / 2);
+var yy = floor((wh - (sh * global.window_scale)) / 2);", @"var border_w = 1920;
+var border_h = 1080;
+var xx, yy;
+
+if ((ww / wh) > (border_w / border_h))
+{
+    var scale = wh / border_h;
+    border_w *= scale;
+    border_h *= scale;
+    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
+    yy = 60 * (wh / 1080);
+}
+else
+{
+    var scale = ww / border_w;
+    border_w *= scale;
+    border_h *= scale;
+    xx = 320 * (ww / 1920);
+    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
+}
+application_surface_rects = 
+{
+    xx: xx,
+    yy: yy,
+    w: ww - (2 * xx),
+    h: wh - (2 * yy),
+    border_scale: scale
+};");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
+
 // obj_time
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Create_0", @"if (global.is_console)
@@ -149,61 +192,11 @@ importGroup.QueueFindReplace("gml_Object_obj_time_Alarm_1", "window_set_size(640
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
-importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", @"var ww = window_get_width();
-var wh = window_get_height();
-var border_w = 1920;
-var border_h = 1080;
-var xx, yy;
+importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", "display_set_gui_maximize();");
 
-if ((ww / wh) > (border_w / border_h))
-{
-    var scale = wh / border_h;
-    border_w *= scale;
-    border_h *= scale;
-    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
-    yy = 60 * (wh / 1080);
-}
-else
-{
-    var scale = ww / border_w;
-    border_w *= scale;
-    border_h *= scale;
-    xx = 320 * (ww / 1920);
-    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
-}
-display_set_gui_maximize();");
-
-importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, xx + 4, yy + 4, 5 * scale, 5 * scale, 0, c_white, quit_timer / 15);");
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, obj_border_controller.application_surface_rects.xx + 4, obj_border_controller.application_surface_rects.yy + 4, 5 * obj_border_controller.application_surface_rects.border_scale, 5 * obj_border_controller.application_surface_rects.border_scale, 0, c_white, quit_timer / 15);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
-
-// obj_border_controller
-
-importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77",
-@"var xx = floor((ww - (sw * global.window_scale)) / 2);
-var yy = floor((wh - (sh * global.window_scale)) / 2);", @"var border_w = 1920;
-var border_h = 1080;
-var xx, yy;
-
-if ((ww / wh) > (border_w / border_h))
-{
-    var scale = wh / border_h;
-    border_w *= scale;
-    border_h *= scale;
-    xx = (320 * (wh / 1080)) + (abs(ww - border_w) / 2);
-    yy = 60 * (wh / 1080);
-}
-else
-{
-    var scale = ww / border_w;
-    border_w *= scale;
-    border_h *= scale;
-    xx = 320 * (ww / 1920);
-    yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
-}");
-
-importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
-
 
 // scr_draw_background_ps4
 
@@ -424,6 +417,20 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_co
 
 importGroup.QueueFindReplace("gml_Object_obj_chapter_continue_Alarm_0", "if (global.is_console)", "if (true)");
 
+// obj_smallface
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_sprite_ext(sprite_index, image_index, x - cx, y - cy, image_xscale, image_yscale, image_angle, image_blend, facealpha);", @"var base_scale = obj_border_controller.application_surface_rects.w / 640;
+    var base_x = obj_border_controller.application_surface_rects.xx;
+    var base_y = obj_border_controller.application_surface_rects.yy;
+    var border_scale = obj_border_controller.application_surface_rects.border_scale;
+    draw_sprite_ext(sprite_index, image_index, base_x + (x - cx) * base_scale, base_y + ((y - cy) * base_scale), image_xscale * 3 * border_scale, image_yscale * 3 * border_scale, image_angle, image_blend, facealpha);");
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 10) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 10) - cy) * base_scale), string_hash_to_newline(mystring), 3 * border_scale, 3* border_scale, 0);");
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 15) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 15) - cy) * base_scale), string_hash_to_newline(mystring), 3 * border_scale, 3* border_scale, 0);");
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70 + random(1)) - cx, (y + 15 + random(1)) - cy, string_hash_to_newline(partstring));", "draw_text_transformed(base_x + (((x + 70 + random(1)) - cx) * base_scale), base_y + (((y + 15 + random(1)) - cy) * base_scale), string_hash_to_newline(partstring), 3 * border_scale, 3* border_scale, 0);");
+
 // scr_text
 
 importGroup.QueueFindReplace("gml_GlobalScript_scr_text", "if (!paptalk && global.is_console)", "if (!paptalk)");
@@ -435,6 +442,12 @@ importGroup.QueueFindReplace("gml_Object_obj_ch2_lw_cutscenes_short_Create_0", "
 // obj_onion_event
 
 importGroup.QueueFindReplace("gml_Object_obj_onion_event_Create_0", "if (global.is_console)", "if (true)");
+
+// obj_ch2_scene31
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_ch2_scene31_Step_0", "if (global.is_console == true)", "if (true)");
+
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_ch2_scene31_Step_0", "else if (global.is_console == true)", "else if (true)");
 
 importGroup.Import();
 
