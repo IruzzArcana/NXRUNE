@@ -444,6 +444,12 @@ importGroup.QueueFindReplace("gml_Object_obj_onion_event_Create_0", "if (global.
 
 importGroup.QueueFindReplace("gml_Object_obj_room_ranking_b_Step_0", "if (gacha_con == 121 && global.is_console)", "if (gacha_con == 121)");
 
+// obj_shutta_photo_controller
+
+importGroup.QueueFindReplace("gml_Object_obj_shutta_photo_controller_Draw_74", "display_get_gui_width", "window_get_width");
+importGroup.QueueFindReplace("gml_Object_obj_shutta_photo_controller_Draw_74", "display_get_gui_height", "window_get_height");
+
+
 importGroup.Import();
 
 ScriptMessage("All done! :3");
