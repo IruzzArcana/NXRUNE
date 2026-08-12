@@ -423,13 +423,13 @@ importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "dr
     var base_x = obj_border_controller.application_surface_rects.xx;
     var base_y = obj_border_controller.application_surface_rects.yy;
     var border_scale = obj_border_controller.application_surface_rects.border_scale;
-    draw_sprite_ext(sprite_index, image_index, base_x + (x - cx) * base_scale, base_y + ((y - cy) * base_scale), image_xscale * 3 * border_scale, image_yscale * 3 * border_scale, image_angle, image_blend, facealpha);");
+    draw_sprite_ext(sprite_index, image_index, base_x + (x - cx) * base_scale, base_y + ((y - cy) * base_scale), image_xscale * 2 * border_scale, image_yscale * 2 * border_scale, image_angle, image_blend, facealpha);");
 
-importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 10) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 10) - cy) * base_scale), string_hash_to_newline(mystring), 3 * border_scale, 3* border_scale, 0);");
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 10) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 10) - cy) * base_scale), string_hash_to_newline(mystring), 2 * border_scale, 2* border_scale, 0);");
 
-importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 15) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 15) - cy) * base_scale), string_hash_to_newline(mystring), 3 * border_scale, 3* border_scale, 0);");
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70) - cx, (y + 15) - cy, string_hash_to_newline(mystring));", "draw_text_transformed(base_x + (((x + 70) - cx) * base_scale), base_y + (((y + 15) - cy) * base_scale), string_hash_to_newline(mystring), 2 * border_scale, 2* border_scale, 0);");
 
-importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70 + random(1)) - cx, (y + 15 + random(1)) - cy, string_hash_to_newline(partstring));", "draw_text_transformed(base_x + (((x + 70 + random(1)) - cx) * base_scale), base_y + (((y + 15 + random(1)) - cy) * base_scale), string_hash_to_newline(partstring), 3 * border_scale, 3* border_scale, 0);");
+importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_smallface_Draw_64", "draw_text((x + 70 + random(1)) - cx, (y + 15 + random(1)) - cy, string_hash_to_newline(partstring));", "draw_text_transformed(base_x + (((x + 70 + random(1)) - cx) * base_scale), base_y + (((y + 15 + random(1)) - cy) * base_scale), string_hash_to_newline(partstring), 2 * border_scale, 2* border_scale, 0);");
 
 // scr_text
 
@@ -442,12 +442,6 @@ importGroup.QueueFindReplace("gml_Object_obj_ch2_lw_cutscenes_short_Create_0", "
 // obj_onion_event
 
 importGroup.QueueFindReplace("gml_Object_obj_onion_event_Create_0", "if (global.is_console)", "if (true)");
-
-// obj_ch2_scene31
-
-importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_ch2_scene31_Step_0", "if (global.is_console == true)", "if (true)");
-
-importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_ch2_scene31_Step_0", "else if (global.is_console == true)", "else if (true)");
 
 importGroup.Import();
 
