@@ -72,4 +72,6 @@ importGroup.QueueFindReplace("gml_Object_obj_screen_transition_Step_0", "if (glo
 
 importGroup.Import();
 
+Data.GameObjects.ByName("obj_init_pc").Persistent = true;
+
 ScriptMessage("All done! :3");
